@@ -6,7 +6,6 @@
 .App li {
   padding: 8px;
   margin: 4px 0;
-  background-color: #f0f0f0;
   border: 1px solid #ccc;
   cursor: grab;
 }
@@ -17,4 +16,16 @@
 
 .App li:active {
   cursor: grabbing;
+}
+
+.kinder {
+  background-color: rgb(120, 120, 189);
+}
+
+.rhythmic {
+  background-color: rgb(112, 87, 112);
+}
+
+.melodic {
+  background-color: rgb(167, 207, 167);
 }
