@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import FocusSong from './FocusSong';
-import PracticeSongs from './PracticeSongs';
+import FocusSong from './FocusSong/FocusSong';
+import PracticeSongs from './PracticeSongs/PracticeSongs';
 
 const ConceptItem = ({ provided, concept, focusSong, allFocusSongs, practiceSongs }) => {
   const [currentFocusSong, setCurrentFocusSong] = useState(focusSong);

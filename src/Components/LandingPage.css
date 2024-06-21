@@ -1,11 +1,21 @@
 .landing-page {
-    text-align: center;
-    padding: 50px;
-  }
-  
-  .search-bar {
-    padding: 10px;
-    font-size: 16px;
-    width: 300px;
-    margin-top: 20px;
-  }
+  text-align: center;
+  padding: 20px;
+}
+
+.landing-page .buttons {
+  margin-top: 20px;
+}
+
+.landing-page button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.landing-page input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+  margin-bottom: 20px;
+}

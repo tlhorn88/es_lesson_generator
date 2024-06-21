@@ -1,0 +1,23 @@
+.home-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .nav-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .nav-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .nav-button:hover {
+    background-color: #0056b3;
+  }
