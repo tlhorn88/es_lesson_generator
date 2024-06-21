@@ -39,7 +39,9 @@ const initialConceptSequence = [
 const conceptSequenceSlice = createSlice({
   name: 'conceptSequence',
   initialState: {
-    sequence: initialConceptSequence
+    sequence: initialConceptSequence,
+    filterdSongs: {},
+    focusSongs: {},
   },
   reducers: {
     setConceptSequence: (state, action) => {
@@ -47,9 +49,15 @@ const conceptSequenceSlice = createSlice({
     },
     reorderConceptSequence: (state, action) => {
       state.sequence = action.payload;
-    }
-  }
+    },
+    setFilteredSongs: (state, action) => {
+      state.filteredSongs = action.payload;
+    },
+    setFocusSongs: (state, action) => {
+      state.focusSongs = action.payload;
+    },
+    },
 });
 
-export const { setConceptSequence, reorderConceptSequence } = conceptSequenceSlice.actions;
+export const { setConceptSequence, reorderConceptSequence, setFilteredSongs, setFocusSongs } = conceptSequenceSlice.actions;
 export default conceptSequenceSlice.reducer;

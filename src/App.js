@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { setConceptSequence, reorderConceptSequence } from './conceptSequenceSlice';
 import { db, ref, get, child } from './firebaseConfig';
 import ConceptSequence from './Components/ConceptSequence';
+import LandingPage from './Components/LandingPage';
 import './App.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [filteredSongs, setFilteredSongs] = useState({});
   const [focusSongs, setFocusSongs] = useState({});
   const [allFocusSongs, setAllFocusSongs] = useState({});
+  const [currentPage, setCurrentPage] = useState('landing');
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -93,10 +95,19 @@ function App() {
     newOrder.splice(result.destination.index, 0, movedItem);
     dispatch(reorderConceptSequence(newOrder));
   };
+  
+  const handleSearch = (query) => {
+    console.log('Searching for: ${query}');
+    // Logic for handling search can be added here\
+    setCurrentPage('concepts');
+  };
 
   return (
     <div className="App">
-      <h1>Concept Sequence</h1>
+      {currentPage === 'landing' ? (
+        <LandingPage onSearch={handleSearch} />
+      ) : (
+      // <h1>Concept Sequence</h1>
       <DragDropContext onDragEnd={handleDragEnd}>
         <ConceptSequence
           conceptSequence={conceptSequence}
@@ -105,6 +116,8 @@ function App() {
           allFocusSongs={allFocusSongs}
         />
       </DragDropContext>
+      )
+    }
     </div>
   );
 }
