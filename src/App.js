@@ -5,10 +5,13 @@ import Home from './Components/Home/Home';
 import Browse from './Components/Browse/Browse';
 import ConceptSequence from './Components/ConceptSequence/ConceptSequence';
 import Favorites from './Components/Favorites';
-import YearlyLessonList from './Components/YearlyLessonList';
-import YearlySongList from './Components/YearlySongList';
+import YearlyLessonList from './Components/YearlyLessonList/YearlyLessonList';
+import YearlySongList from './Components/YearlySongList/YearlySongList';
 import NavBar from './Components/NavBar/NavBar';
 import Sidebar from './Components/Sidebar/Sidebar';
+import LessonTemplate from './Components/LessonTemplate/LessonTemplate';
+import LanguageSettings from './Components//LanguageSettings/LanguageSettings';
+
 import './App.css';
 
 function App() {
@@ -34,6 +37,8 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/yearly-lessons" element={<YearlyLessonList />} />
             <Route path="/yearly-songs" element={<YearlySongList />} />
+            <Route path="/language-settings" element={<LanguageSettings />} />
+            <Route path="/lesson-template" element={<LessonTemplate />} />
           </Routes>
         </div>
       </div>

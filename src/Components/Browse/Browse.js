@@ -35,14 +35,20 @@ function Browse() {
 
   return (
     <div className="browse-container">
-      <div className="sidebar">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
-        {/* Add more filter options here */}
+      <div className="sidebar-browse">
+        <p>secret hidden sidebar</p>
+
+        <div className="filter-options">
+          {/* Add more filter options here */}
+          <label>
+            <input type="checkbox" name="filter1" />
+            Filter 1
+          </label>
+          <label>
+            <input type="checkbox" name="filter2" />
+            Filter 2
+          </label>
+        </div>
       </div>
       <div className="main-content">
         {filteredSongs.map(song => (
