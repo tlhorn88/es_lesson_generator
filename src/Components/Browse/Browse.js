@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { firestore, auth, db, ref, get, child } from '../../firebaseConfig';
+import { db, ref, get, child } from '../../firebaseConfig';
+import { fetchUserSongs } from '../firebaseFunctions/firebaseFunctions';
 import './Browse.css';
 
 function Browse() {
@@ -9,35 +9,23 @@ function Browse() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchSongs = async () => {
+    const loadSongs = async () => {
+      const dbRef = ref(db);
       try {
-        // Fetch static songs from Firebase Realtime Database
-        const dbRef = ref(db);
         const snapshot = await get(child(dbRef, '/'));
-        let staticSongs = [];
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          staticSongs = Object.keys(data).map(key => ({ id: key, ...data[key] })).filter(item => item.songTitle);
-        }
-
-        // Fetch user-specific songs from Firestore
-        const user = auth.currentUser;
-        let userSongs = [];
-        if (user) {
-          const userSongsSnapshot = await getDocs(collection(firestore, 'users', user.uid, 'addedSongs'));
-          userSongs = userSongsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        }
-
-        // Combine both lists
-        const combinedSongs = [...staticSongs, ...userSongs];
-        setSongs(combinedSongs);
-        setFilteredSongs(combinedSongs);
+        const staticSongs = snapshot.exists() ? Object.keys(snapshot.val()).map(key => ({ id: key, ...snapshot.val()[key] })).filter(item => item.songTitle) : [];
+        
+        const userSongs = await fetchUserSongs();
+        
+        const allSongs = [...staticSongs, ...userSongs];
+        setSongs(allSongs);
+        setFilteredSongs(allSongs); // Initialize with all songs
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
 
-    fetchSongs();
+    loadSongs();
   }, []);
 
   useEffect(() => {

@@ -1,9 +1,21 @@
 import React, { useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
 import './Sidebar.css';
 
 function Sidebar({ isOpen, closeSidebar }) {
   const sidebarRef = useRef(null);
+  const auth = getAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log('User logged out');
+      closeSidebar(); // Close the sidebar after logging out
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -26,7 +38,13 @@ function Sidebar({ isOpen, closeSidebar }) {
           <NavLink to="/auth">Login / Create Account</NavLink>
         </li>
         <li>
+          <button onClick={handleLogout}>Log Out</button>
+        </li>
+        <li>
           <NavLink to="/concept-sequence">Concept Sequence</NavLink>
+        </li>
+        <li>
+          <NavLink to="/add-songs">Add Songs</NavLink>
         </li>
         <li>
           <NavLink to="/language-settings">Language Settings</NavLink>

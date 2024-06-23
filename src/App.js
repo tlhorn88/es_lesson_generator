@@ -12,6 +12,8 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import LessonTemplate from './Components/LessonTemplate/LessonTemplate';
 import LanguageSettings from './Components/LanguageSettings/LanguageSettings';
 import Authentication from './Components/Authentication/Authentication';
+import AddSongs from './Components/AddSongs/AddSongs';
+
 
 import './App.css';
 
@@ -41,6 +43,8 @@ function App() {
             <Route path="/language-settings" element={<LanguageSettings />} />
             <Route path="/lesson-template" element={<LessonTemplate />} />
             <Route path="/auth" element={<Authentication />} />
+            <Route path="/add-songs" element={<AddSongs />} />
+
           </Routes>
         </div>
       </div>
