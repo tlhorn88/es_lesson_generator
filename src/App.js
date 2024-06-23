@@ -10,7 +10,8 @@ import YearlySongList from './Components/YearlySongList/YearlySongList';
 import NavBar from './Components/NavBar/NavBar';
 import Sidebar from './Components/Sidebar/Sidebar';
 import LessonTemplate from './Components/LessonTemplate/LessonTemplate';
-import LanguageSettings from './Components//LanguageSettings/LanguageSettings';
+import LanguageSettings from './Components/LanguageSettings/LanguageSettings';
+import Authentication from './Components/Authentication/Authentication';
 
 import './App.css';
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/yearly-songs" element={<YearlySongList />} />
             <Route path="/language-settings" element={<LanguageSettings />} />
             <Route path="/lesson-template" element={<LessonTemplate />} />
+            <Route path="/auth" element={<Authentication />} />
           </Routes>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { db, ref, get, child } from '../../firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore, auth, db, ref, get, child } from '../../firebaseConfig';
 import './Browse.css';
 
 function Browse() {
@@ -9,17 +10,28 @@ function Browse() {
 
   useEffect(() => {
     const fetchSongs = async () => {
-      const dbRef = ref(db);
       try {
+        // Fetch static songs from Firebase Realtime Database
+        const dbRef = ref(db);
         const snapshot = await get(child(dbRef, '/'));
+        let staticSongs = [];
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const dataArray = Object.keys(data).map(key => ({ id: key, ...data[key] })).filter(item => item.songTitle);
-          setSongs(dataArray);
-          setFilteredSongs(dataArray);  // Initialize with all songs
-        } else {
-          console.log("No songs available");
+          staticSongs = Object.keys(data).map(key => ({ id: key, ...data[key] })).filter(item => item.songTitle);
         }
+
+        // Fetch user-specific songs from Firestore
+        const user = auth.currentUser;
+        let userSongs = [];
+        if (user) {
+          const userSongsSnapshot = await getDocs(collection(firestore, 'users', user.uid, 'addedSongs'));
+          userSongs = userSongsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        }
+
+        // Combine both lists
+        const combinedSongs = [...staticSongs, ...userSongs];
+        setSongs(combinedSongs);
+        setFilteredSongs(combinedSongs);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -36,10 +48,14 @@ function Browse() {
   return (
     <div className="browse-container">
       <div className="sidebar-browse">
-        <p>secret hidden sidebar</p>
-
+        <p>Filter Options</p>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
         <div className="filter-options">
-          {/* Add more filter options here */}
           <label>
             <input type="checkbox" name="filter1" />
             Filter 1

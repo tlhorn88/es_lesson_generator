@@ -23,6 +23,9 @@ function Sidebar({ isOpen, closeSidebar }) {
       <button onClick={closeSidebar}>Close</button>
       <ul>
         <li>
+          <NavLink to="/auth">Login / Create Account</NavLink>
+        </li>
+        <li>
           <NavLink to="/concept-sequence">Concept Sequence</NavLink>
         </li>
         <li>
